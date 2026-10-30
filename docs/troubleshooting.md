@@ -9,12 +9,12 @@ flowchart TD
     S --> Q["The agent cannot get a quote"]
     S --> C["A paid call fails"]
     S --> P["Payments or payouts look wrong"]
-    S --> N["Your server is not reachable"]
+    S --> N["RPC, facilitator or access errors"]
     D --> D1["→ Setup checks"]
     Q --> Q1["→ Quotes"]
     C --> C1["→ Paid calls"]
     P --> P1["→ Money"]
-    N --> N1["→ Hosting and network"]
+    N --> N1["→ RPC, facilitator and access"]
 ```
 
 ## Setup checks (`diagnose()`)
@@ -77,14 +77,14 @@ flowchart TD
 | `split_check_failed`: "no contract at the split address" | Wrong address, or the creation transaction failed |
 | `split_check_unavailable` (503) | Hagglyai could not read Base just then | Try again. Persistent: Hagglyai's RPC needs attention |
 
-## Hosting and network
+## RPC, facilitator and access
+
+How you host your server is up to you; these are the parts of your set-up that Premium depends on.
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| **502** through a Cloudflare Tunnel in Docker | The tunnel's service points at `localhost`, which inside the container is the container itself | Point the tunnel at the host instead (e.g. the Docker network's gateway, `http://172.x.0.1:8787`), and allow that network through your firewall (`ufw allow in from 172.x.0.0/16 to any port 8787 proto tcp`) |
-| Agents get a **login page** | Cloudflare Access (or another login) protects your MCP URL | Add a bypass for the MCP path: agents cannot log in |
+| Agents get a **login page** or `401`/`403` from your server | An authentication layer in front of your MCP URL | Paid calls must reach `/mcp` without a login: agents pay instead of signing in |
 | RPC errors **525** from Cloudflare Workers | Alchemy refuses requests from Workers | Use Coinbase CDP's Base node (`https://api.developer.coinbase.com/rpc/v1/base/<key>`) |
 | RPC errors **429** | Free public RPCs rate-limit shared addresses | Use your own RPC key (Coinbase CDP's is free) |
 | "Invalid URL" around the RPC | The setting holds only the key, not the URL | Set the whole URL, starting `https://` |
 | Facilitator rejects payments | It does not support Base mainnet (`eip155:8453`) | Use PayAI (`https://facilitator.payai.network`) or Coinbase CDP's facilitator |
-| A secret file is owned by `root` | It was saved with `sudo` | `sudo chown $USER: <file> && chmod 600 <file>` |

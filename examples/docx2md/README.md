@@ -39,7 +39,7 @@ npm test    # test/docx2md.test.ts: free methods, ordinary 402, a paid call into
 ## Run it for real
 
 You need the settings Hagglyai sends you (see the [provider guide, step 2](../../docs/provider-guide.md#what-hagglyai-sends-you))
-and a public `https://` URL for your server, for example a Cloudflare Tunnel.
+and a public `https://` URL for your server, hosted however you like.
 
 1. Put your settings in a file only you can read (`chmod 600`), never in the repository:
 
@@ -63,8 +63,7 @@ and a public `https://` URL for your server, for example a Cloudflare Tunnel.
 
    Every `diagnose:` line should say `ok`, including **middleware order**.
 
-3. Point your tunnel at `http://localhost:8787`. Running the tunnel in Docker? Point it at the host
-   instead of `localhost` (see [Troubleshooting → Hosting](../../docs/troubleshooting.md#hosting-and-network)).
+3. Make it reachable at your public URL, with `POST /mcp` open to agents (no login in front of it).
 
 4. Make a paid call from a wallet holding only a few USDC on Base (key in a `chmod 600` file):
 
