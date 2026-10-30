@@ -71,9 +71,9 @@ flowchart TD
 
 | Error | Fix |
 |---|---|
-| `split_check_failed`: "not a Splits V2.2 push split" | Create the split again with **Push** distribution |
-| `split_check_failed`: "has an owner" / "is paused" | Create it again with **no controller** |
-| `split_check_failed`: "does not pay …" | The wallets, the shares or the distributor fee differ from the agreement. Fee must be 0% |
+| `split_check_failed`: "not a Splits V2.2 push split" | Create the split again through the **push factory** (see [Provider guide → create it yourself](provider-guide.md#the-split-the-easy-way)) |
+| `split_check_failed`: "has an owner" / "is paused" | Create it again with `_owner` set to `0x0000000000000000000000000000000000000000` |
+| `split_check_failed`: "does not pay …" | The wallets, the shares or the fee differ from the agreement: check `recipients`, `allocations` (same order, out of 1,000,000) and `distributionIncentive` (must be `0`) |
 | `split_check_failed`: "no contract at the split address" | Wrong address, or the creation transaction failed |
 | `split_check_unavailable` (503) | Hagglyai could not read Base just then | Try again. Persistent: Hagglyai's RPC needs attention |
 
