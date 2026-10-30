@@ -67,7 +67,7 @@ flowchart LR
 | Example | What it shows |
 |---|---|
 | [`examples/mcp-sdk`](examples/mcp-sdk/) | **Start here.** The pattern from the provider guide: an MCP server built with the official MCP SDK, on **Hono** (Cloudflare Workers, Node, Bun, Deno) or **Express** (Node), with only its paid tools behind Premium |
-| [`examples/docx2md`](examples/docx2md/) | A complete paid MCP service (Word to Markdown) with storage, background jobs, `diagnose()` and a buyer script. Used for Hagglyai's first real end-to-end payout on Base |
+| [`examples/docx2md`](examples/docx2md/) | A complete paid MCP service (Word to Markdown) with storage, background jobs, `diagnose()` and a buyer script |
 
 ```sh
 git clone https://github.com/mckenziefuk/hagglyai-premium-mcp

@@ -24,8 +24,8 @@ flowchart LR
 | **Hono or Express** in front of your MCP handler | The middleware plugs into either | Other frameworks: talk to us |
 | **A public `https://` URL** | Quotes are only issued for https | One origin, e.g. `https://mcp.example.com` |
 | **A wallet on Base** for your share | Your earnings are paid to it | Any wallet you control. No ETH needed |
-| **An x402 facilitator for Base mainnet** | Settles each payment | [PayAI](https://facilitator.payai.network) (no key needed) and Coinbase CDP both work. PayAI is tested end to end with splits |
-| **A Base RPC URL** | Rare checks of uncertain payments | Use one that works from your platform. On Cloudflare Workers use **Coinbase CDP's Base node**: Alchemy refuses Workers (HTTP 525) |
+| **An x402 facilitator for Base mainnet** | Settles each payment | Any facilitator whose `/supported` list includes the `exact` scheme on `eip155:8453` |
+| **A Base RPC URL** | Rare checks of uncertain payments | Any Base mainnet endpoint reachable from where your server runs. Prefer one with your own key: free public endpoints rate-limit |
 | **A small SQL database** | Each quote is paid once; deliveries are reported reliably | Cloudflare D1, SQLite (built in), or any SQL database |
 
 ---
@@ -155,7 +155,7 @@ const partner = createHagglyPartner({
   outbox,   // step 5
 });
 const server = partner.attach(
-  new x402ResourceServer(new HTTPFacilitatorClient({ url: env.FACILITATOR_URL }))   // e.g. https://facilitator.payai.network
+  new x402ResourceServer(new HTTPFacilitatorClient({ url: env.FACILITATOR_URL }))   // your facilitator for Base mainnet
     .register("eip155:8453", new ExactEvmScheme()),
 );
 // Your ordinary x402 price and wallet, for callers without a Hagglyai quote:

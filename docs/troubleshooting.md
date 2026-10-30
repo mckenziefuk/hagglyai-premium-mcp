@@ -84,7 +84,7 @@ How you host your server is up to you; these are the parts of your set-up that P
 | Symptom | Cause | Fix |
 |---|---|---|
 | Agents get a **login page** or `401`/`403` from your server | An authentication layer in front of your MCP URL | Paid calls must reach `/mcp` without a login: agents pay instead of signing in |
-| RPC errors **525** from Cloudflare Workers | Alchemy refuses requests from Workers | Use Coinbase CDP's Base node (`https://api.developer.coinbase.com/rpc/v1/base/<key>`) |
-| RPC errors **429** | Free public RPCs rate-limit shared addresses | Use your own RPC key (Coinbase CDP's is free) |
+| RPC errors (5xx, e.g. **525**) from your server, while the same URL works elsewhere | Your RPC provider does not accept connections from your hosting platform | Use an RPC provider that works from your platform: test it from where your server runs, not only from your machine |
+| RPC errors **429** | Free public RPCs rate-limit shared addresses | Use a dedicated endpoint with your own key |
 | "Invalid URL" around the RPC | The setting holds only the key, not the URL | Set the whole URL, starting `https://` |
-| Facilitator rejects payments | It does not support Base mainnet (`eip155:8453`) | Use PayAI (`https://facilitator.payai.network`) or Coinbase CDP's facilitator |
+| Facilitator rejects payments | It does not support Base mainnet (`eip155:8453`) | Use a facilitator whose `/supported` list includes the `exact` scheme on `eip155:8453` |
