@@ -48,18 +48,32 @@ pays your wallet and Hagglyai's in the agreed shares, and sends you its address.
 nobody can ever change it. That is all you have to do. Check it on Basescan if you like (below).
 
 <details>
-<summary><b>Prefer to create it yourself?</b> (about 2 minutes, a few cents of gas)</summary>
+<summary><b>Prefer to create it yourself?</b> (about 5 minutes, a few cents of gas)</summary>
 
-1. Open [app.splits.org](https://app.splits.org), connect a wallet, and switch to **Base**.
-2. **New contract → Split**.
-3. Recipients: your wallet with your share (e.g. **80%**), Hagglyai's wallet with the commission
-   (e.g. **20%**). Hagglyai gives you its wallet address.
-4. **Distribution: Push.** This is the one setting that matters. The app may default to *Pull*, which
-   leaves payouts in the Splits Warehouse; Hagglyai refuses a pull split.
-5. **Distributor fee: 0%.** **Controller: none** (immutable).
-6. Create it and send Hagglyai the split's address.
+You create it by calling the Splits V2.2 **push** split factory on Base directly, with
+[abi.ninja](https://abi.ninja) (a page for calling any contract from your wallet). Using the push factory
+is what makes it a push split: payouts go straight to the wallets. A *pull* split would leave them in
+the Splits Warehouse, and Hagglyai refuses it.
 
-If the app shows no Push option, or your wallet refuses the transaction, ask Hagglyai to create it.
+1. Open **[abi.ninja/0x8E8eB0cC6AE34A38B67D5Cf91ACa38f60bc3Ecf4/8453](https://abi.ninja/0x8E8eB0cC6AE34A38B67D5Cf91ACa38f60bc3Ecf4/8453)**
+   (the push factory on Base) and connect your wallet.
+2. Choose **`createSplit`** (not `createSplitDeterministic`).
+3. Fill in the fields. Lists are written as JSON, with square brackets and quotes:
+
+   | Field | Value | Meaning |
+   |---|---|---|
+   | `recipients` | `["0xYourWallet","0xHagglyaiWallet"]` | Hagglyai gives you its wallet address |
+   | `allocations` | `[800000,200000]` | Shares out of 1,000,000, in the same order (80% / 20% here) |
+   | `totalAllocation` | `1000000` | Always 1,000,000 |
+   | `distributionIncentive` | `0` | No fee for whoever triggers a payout |
+   | `_owner` | `0x0000000000000000000000000000000000000000` | No owner: nobody can ever change the split |
+   | `_creator` | your wallet address | A label only; it gives no control |
+
+4. Send the transaction (a few cents of gas on Base) and confirm it in your wallet.
+5. Find the split's address: open the transaction on Basescan, **Logs** tab; it is the address of the
+   new contract that emitted the first events. Send it to Hagglyai.
+
+If anything is refused, or you would rather not, ask Hagglyai to create it for you.
 
 </details>
 
