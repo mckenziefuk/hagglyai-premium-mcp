@@ -1,9 +1,7 @@
 # docx2md: a complete paid MCP service
 
 A small, real MCP server with one paid tool, `docx_to_markdown`, which converts a Word document to
-Markdown with [`docx2md.py`](docx2md.py) (Python standard library only). It is the service Hagglyai used
-for its first real end-to-end payout on Base: ten paid calls through a hosted facilitator into a Splits
-push split, delivered, confirmed on chain and paid out.
+Markdown with [`docx2md.py`](docx2md.py) (Python standard library only).
 
 Use it as a second, fuller example next to [`examples/mcp-sdk`](../mcp-sdk/): it adds durable storage,
 background jobs, `diagnose()` on start-up, and a buyer script.
@@ -49,8 +47,8 @@ and a public `https://` URL for your server, hosted however you like.
    HAGGLY_JWKS={"keys":[…]}            # from https://premium.hagglyai.com/.well-known/jwks.json
    HAGGLY_EVENTS_TOKEN=…               # secret
    PROVIDER_WALLET=0x…                 # your wallet, for ordinary (non-premium) calls
-   FACILITATOR_URL=https://facilitator.payai.network
-   BASE_RPC_URL=https://api.developer.coinbase.com/rpc/v1/base/<your key>
+   FACILITATOR_URL=https://…           # your x402 facilitator for Base mainnet
+   BASE_RPC_URL=https://…              # your Base mainnet RPC URL
    ORDINARY_PRICE=$0.60
    PORT=8787
    ```

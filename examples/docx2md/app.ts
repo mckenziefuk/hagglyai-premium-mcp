@@ -1,7 +1,7 @@
 /**
  * A small MCP server (Streamable HTTP, stateless, JSON responses) with one paid tool,
- * `docx_to_markdown`, which runs docx2md.py. Built to test Hagglyai Premium end to end: a premium
- * call pays the agreement's price into the split; a call without a quote pays the ordinary price.
+ * `docx_to_markdown`, which runs docx2md.py, behind Hagglyai Premium: a premium call pays the
+ * agreement's price into the split; a call without a quote pays the ordinary price.
  *
  * MCP sends every message to one URL (`POST /mcp`), so the payment middleware cannot be mounted on a
  * route alone. Only a `tools/call` of the paid tool goes through hagglyPremium and the x402
