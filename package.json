@@ -1,0 +1,40 @@
+{
+  "name": "hagglyai-premium-mcp",
+  "private": true,
+  "type": "module",
+  "description": "Hagglyai Premium for MCP servers: guide, troubleshooting and runnable examples",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "check": "npm run lint && npm run typecheck && npm run test",
+    "docx2md": "tsx examples/docx2md/server.ts"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "dependencies": {
+    "@hagglyai/premium-protocol": "0.1.0",
+    "@hagglyai/premium-x402": "0.2.0",
+    "@hono/node-server": "1.19.11",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@x402/core": "2.28.0",
+    "@x402/evm": "2.28.0",
+    "@x402/express": "2.28.0",
+    "@x402/fetch": "2.28.0",
+    "@x402/hono": "2.28.0",
+    "express": "5.3.0",
+    "hono": "4.13.13",
+    "viem": "2.57.7",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@types/express": "5.0.6",
+    "@types/node": "26.6.5",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "4.1.12"
+  }
+}
